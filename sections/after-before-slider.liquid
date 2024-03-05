@@ -1,0 +1,686 @@
+<style>
+  body {
+      margin: 0;
+  }
+  .dp_01_universal * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+  }
+
+  .dp_01_container {
+      max-width: 1340px;
+      margin: 0 auto;
+      padding: 0px 20px;
+  }
+      {% if section.settings.show_content == true %}
+        .dp_01_container_wrapper{
+          width: calc(50% - 20px);
+        }
+        {% else %}
+          .dp_01_container_wrapper{
+            width: 50%;
+            margin: 0 auto;
+        }
+        {% endif %}
+
+    .before_after_content_wrapper {
+          display: flex;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          gap: 30px;
+          max-width: 1200px;
+          width: 100%;
+          margin: 0 auto;
+          background-color: {{ section.settings.before_after_content_wrapper_bg }};
+          width: 100%;
+        }
+        .main_section_wrapper{
+          padding: {{ section.settings.section_padding }}px 30px;
+          background-color: {{ section.settings.section_bg }} ;
+          margin-top: {{ section.settings.section_margin_top }}px;
+          margin-bottom: {{ section.settings.section_margin_bottom }}px;
+        }
+
+        img {
+          display: block;
+          max-width: 100%;
+        }
+
+        .dp_01_container_wrapper {
+          display: grid;
+          /* place-content: center; */
+          position: relative;
+          overflow: hidden;
+          --position: 50%;
+        }
+
+        .image-container {
+          max-width: 1200px;
+        }
+
+      .before_badge {
+        z-index: 2 !important;
+        position: absolute;
+        bottom: 15px;
+        left: 15px;
+        background: #fff;
+        padding: 0 5px;
+        border-radius: 5px;
+        color: #000;
+      }
+
+        .after_badge {
+        z-index: 2 !important;
+        position: absolute;
+        bottom: 15px;
+        right: 15px;
+        background: #fff;
+        padding: 0 5px;
+        border-radius: 5px;
+        color: #000;
+      }
+
+      .slider-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: left;
+        /* max-height: 500px; */
+      }
+
+      .image-before {
+        position: absolute;
+        inset: 0;
+        width: var(--position);
+        {% if section.settings.grayscale_before %}filter: grayscale(100%);{% endif %}
+      }
+
+      .dp_01_slider {
+        position: absolute;
+        inset: 0;
+        cursor: pointer;
+        opacity: 0;
+        /* for Firefox */
+        width: 100%;
+        height: 100%;
+      }
+
+      .dp_01_slider:focus-visible ~ .after_before_slider-button {
+        outline: 5px solid black;
+        outline-offset: 3px;
+      }
+
+      .slider-line {
+        position: absolute;
+        inset: 0;
+        width: .2rem;
+        height: 100%;
+        background-color: #fff;
+        /* z-index: 10; */
+        left: var(--position);
+        transform: translateX(-50%);
+        pointer-events: none;
+      }
+
+      .after_before_slider-button {
+        position: absolute;
+        background-color: #fff !important;
+        color: black;
+        padding: .5rem;
+        border-radius: 100vw;
+        display: grid;
+        place-items: center;
+        top: 50%;
+        left: var(--position);
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        /* z-index: 100; */
+        box-shadow: 1px 1px 1px hsl(0, 50%, 2%, .5);
+      }
+      .after_img {
+        height: 100%;
+      }
+
+
+    /* text content style */
+    .heading_content_wrapper {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+      }
+
+      .heading_content_text {
+          font-size: 36px;
+          font-weight: 600;
+          color: #030000;
+      }
+
+      .text_content_wrapper {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          padding: 15px 15px 15px 0px;
+      }
+
+      .simple_sub_text {
+          font-weight: 600;
+          color: #000;
+      }
+
+      .simple_heading_wrapper {
+          text-align: center;
+      }
+
+      .simple_description_wrapper {
+          text-align: center;
+          /* max-width: 250px; */
+      }
+
+      .simple_heading_text {
+          font-weight: 500;
+          color: #000;
+      }
+
+      .simple_description_text {
+          display: block;
+          font-weight: 400;
+          color: rgb(0, 0, 0, 80%);
+      }
+
+      .shop_button {
+          padding: 7px 10px;
+          background-color: transparent;
+          border: 1px solid rgba(0, 0, 0, 80%);
+          border-radius: 5px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s linear;
+      }
+
+      .shop_button:hover {
+          background-color: {{ section.settings.button_hover_bg }};
+          color: white;
+      }
+
+
+
+
+      @media only screen and (max-width: 768px){
+        .dp_01_container_wrapper{
+              width: 100%;
+              display: block;
+          }
+          .main_section_wrapper{
+            padding: {{ section.settings.mobile_device_section_padding }}px 20px;
+            margin-top: {{ section.settings.mobile_device_section_margin_top }}px;
+            margin-bottom: {{ section.settings.mobile_device_section_margin_bottom }}px;
+          }
+          .text_content_wrapper {
+              padding: 0px 15px 30px 15px;
+          }
+      }
+      @media screen and (min-width:1100px){
+        .simple_description_wrapper {
+             max-width: 365px;
+           }
+      }
+</style>
+{% assign unique_id = 'ba_slider_' | append: section.id %}
+
+<div class="main_section_wrapper dp_01_universal">
+  <main class="before_after_content_wrapper {{ unique_id }}">
+    {% if section.settings.af_image and section.settings.bf_image %}
+      <div class="dp_01_container_wrapper before_after">
+        <div class="image-container">
+          <div class="before_img">
+            <img
+              class="image-before slider-image"
+              src="{{ section.settings.bf_image | image_url }}"
+              alt="color photo"
+            >
+            <span
+              class="before_badge ba_badge"
+              style="{% unless section.settings.show_badge %}display: none;{% endunless %}"
+              >Before</span
+            >
+          </div>
+          <div class="after_img">
+            <img
+              class="image-after slider-image"
+              src="{{ section.settings.af_image | image_url }}"
+              alt="black and white"
+            >
+            <span
+              class="after_badge ba_badge"
+              style="{% unless section.settings.show_badge %}display: none;{% endunless %}"
+              >After</span
+            >
+          </div>
+        </div>
+        <!-- step="10" -->
+        <input
+          type="range"
+          min="0"
+          max="100"
+          value="50"
+          aria-label="Percentage of before photo shown"
+          class="dp_01_slider"
+        >
+        <div class="slider-line" aria-hidden="true"></div>
+        <div class="after_before_slider-button" aria-hidden="true">
+          <svg
+            xmlns:dc="http://purl.org/dc/elements/1.1/"
+            xmlns:cc="http://creativecommons.org/ns#"
+            xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+            xmlns:svg="http://www.w3.org/2000/svg"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+            xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+            width="20px"
+            height="20px"
+            viewBox="0 0 400 400.00001"
+            id="svg2"
+            version="1.1"
+            inkscape:version="0.91 r13725"
+            sodipodi:docname="move.svg"
+            fill="#000000"
+          >
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <defs id="defs4"></defs> <sodipodi:namedview id="base" pagecolor="#ffffff" bordercolor="#666666" borderopacity="1.0" inkscape:pageopacity="0.0" inkscape:pageshadow="2" inkscape:zoom="0.98994949" inkscape:cx="244.49048" inkscape:cy="180.68004" inkscape:document-units="px" inkscape:current-layer="layer1" showgrid="false" units="px" showguides="true" inkscape:guide-bbox="true" inkscape:window-width="1920" inkscape:window-height="1056" inkscape:window-x="1920" inkscape:window-y="24" inkscape:window-maximized="1"> <sodipodi:guide position="200.71429,121.42857" orientation="1,0" id="guide23298"></sodipodi:guide> </sodipodi:namedview> <metadata id="metadata7"> <rdf:rdf> <cc:work rdf:about=""> <dc:format>image/svg+xml</dc:format> <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"></dc:type> <dc:title> </dc:title> </cc:work> </rdf:rdf> </metadata> <g inkscape:label="Capa 1" inkscape:groupmode="layer" id="layer1" transform="translate(0,-652.36216)"> <path style="opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" d="m 310.1582,698.52035 -17.6778,17.67781 59.6641,59.664 -352.1445,0 0,25 352.1445,0 -59.6641,59.66409 17.6778,17.6777 L 400,788.36215 Z m -220.3164,128 L 0,916.36215 l 89.8418,89.84185 17.6777,-17.67774 -59.6641,-59.66411 352.1446,0 0,-25 -352.1446,0 59.6641,-59.664 z" id="move" inkscape:connector-curvature="0" sodipodi:nodetypes="cccccccccccccccccccc"> <title id="title23513">move</title> </path> </g> </g>
+          </svg>
+        </div>
+      </div>
+    {% else %}
+      <h4
+        style="text-align: center; display:flex; align-items:center;justify-content:center;padding-top:10px"
+        class="dp_01_container_wrapper before_after"
+      >
+        Opps!! No Images Found <br>
+        Please Upload After and Before Images
+      </h4>
+    {% endif %}
+    <div
+      class="dp_01_container_wrapper before_after_content"
+      style="{% unless section.settings.show_content %}display: none;{% endunless %}"
+    >
+      <div class="text_content_wrapper">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'subtext' %}
+              <div
+                class="simple_sub_text_wrapper"
+                style="margin-top:{{ block.settings.subtext_padding_top }}px;margin-bottom:{{ block.settings.subtext_padding_bottom }}px"
+              >
+                <span style="font-size: {{ block.settings.subtext_font_size }}px;" class="simple_sub_text">
+                  {{- block.settings.ba_sub_text -}}
+                </span>
+              </div>
+            {% when 'heading' %}
+              <div
+                class="simple_heading_wrapper"
+                style="margin-top:{{ block.settings.heading_padding_top }}px;margin-bottom:{{ block.settings.heading_padding_bottom }}px"
+              >
+                <span style="font-size: {{ block.settings.heading_font_size }}px;" class="simple_heading_text">
+                  {{- block.settings.ba_heading -}}
+                </span>
+              </div>
+            {% when 'content' %}
+              <div class="simple_description_wrapper">
+                <span
+                  style="font-size: {{ block.settings.content_font_size }}px;margin-top:{{ block.settings.content_padding_top }}px;margin-bottom:{{ block.settings.content_padding_bottom }}px"
+                  class="simple_description_text"
+                >
+                  {{ block.settings.ba_content }}
+                </span>
+              </div>
+            {% when 'button' %}
+              {% if section.settings.show_shop_button %}
+                <div class="shop_button_wrapper">
+                  <a href="{{ block.settings.button_url }}">
+                    <button
+                      style="font-size: {{ block.settings.button_font_size }}px;margin-top:{{ block.settings.button_padding_top }}px;margin-bottom:{{ block.settings.button_padding_bottom }}px"
+                      class="shop_button"
+                    >
+                      {{ block.settings.button_text }}
+                    </button></a
+                  >
+                </div>
+              {% endif %}
+          {% endcase %}
+        {% endfor %}
+      </div>
+    </div>
+  </main>
+</div>
+
+{% schema %}
+{
+  "name": "Before / After Slider",
+  "settings": [
+    {
+      "id": "bf_image",
+      "type": "image_picker",
+      "label": "Before Image"
+    },
+    {
+      "id": "af_image",
+      "type": "image_picker",
+      "label": "After Image"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_badge",
+      "label": "Show Badges",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "grayscale_before",
+      "label": "Grayscale for Before Image",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_content",
+      "label": "Show content",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_shop_button",
+      "label": "Show Shop Button",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "min": 40,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Main Section Padding Top & Bottom",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "mobile_device_section_padding",
+      "min": 20,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile Device Main Section Padding Top & Bottom",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "section_margin_top",
+      "min": 30,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Main Section Margin Top",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "section_margin_bottom",
+      "min": 30,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Main Section Margin Bottom",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "mobile_device_section_margin_top",
+      "min": 30,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile Device Main Section Margin Top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "mobile_device_section_margin_bottom",
+      "min": 30,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile Device Main Section Margin Bottom",
+      "default": 40
+    },
+    {
+      "type": "color",
+      "id": "section_bg",
+      "label": "Section Background Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "before_after_content_wrapper_bg",
+      "label": "Before After Content Warpper Background Color",
+      "default": "#fff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg",
+      "label": "Button Hover Color",
+      "default": "#000000"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Sub Text",
+      "type": "subtext",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "ba_sub_text",
+          "label": "Sub Text",
+          "default": "Mix & Match"
+        },
+        {
+          "type": "range",
+          "id": "subtext_font_size",
+          "min": 12,
+          "max": 30,
+          "step": 2,
+          "unit": "px",
+          "label": "Sub Text Font Size",
+          "default": 14
+        },
+        {
+          "type": "range",
+          "id": "subtext_padding_top",
+          "min": 12,
+          "max": 24,
+          "step": 2,
+          "unit": "px",
+          "label": "Sub Text Margin Top",
+          "default": 18
+        },
+        {
+          "type": "range",
+          "id": "subtext_padding_bottom",
+          "min": 0,
+          "max": 24,
+          "step": 2,
+          "unit": "px",
+          "label": "Sub Text Margin Buttom",
+          "default": 18
+        }
+      ]
+    },
+    {
+      "name": "Heading Text",
+      "type": "heading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "ba_heading",
+          "label": "Heading Text",
+          "default": "Layer up with pieces designed"
+        },
+        {
+          "type": "range",
+          "id": "heading_font_size",
+          "min": 20,
+          "max": 50,
+          "step": 2,
+          "unit": "px",
+          "label": "Heading Text Font Size",
+          "default": 30
+        },
+        {
+          "type": "range",
+          "id": "heading_padding_top",
+          "min": 12,
+          "max": 24,
+          "step": 2,
+          "unit": "px",
+          "label": "Heading Margin Top",
+          "default": 18
+        },
+        {
+          "type": "range",
+          "id": "heading_padding_bottom",
+          "min": 0,
+          "max": 24,
+          "step": 2,
+          "unit": "px",
+          "label": "Heading Margin Buttom",
+          "default": 18
+        }
+      ]
+    },
+    {
+      "name": "Content",
+      "type": "content",
+      "limit": 1,
+      "settings": [
+        {
+          "id": "ba_content",
+          "type": "inline_richtext",
+          "label": "Content",
+          "default": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eius, inventore! Nobis ipsa cum"
+        },
+        {
+          "type": "range",
+          "id": "content_font_size",
+          "min": 12,
+          "max": 16,
+          "step": 2,
+          "unit": "px",
+          "label": "Content Font Size",
+          "default": 12
+        },
+        {
+          "type": "range",
+          "id": "content_padding_top",
+          "min": 12,
+          "max": 40,
+          "step": 2,
+          "unit": "px",
+          "label": "Content Margin Top",
+          "default": 18
+        },
+        {
+          "type": "range",
+          "id": "content_padding_bottom",
+          "min": 0,
+          "max": 40,
+          "step": 2,
+          "unit": "px",
+          "label": "Content Margin Buttom",
+          "default": 18
+        }
+      ]
+    },
+    {
+      "name": "Shop Button",
+      "type": "button",
+      "limit": 1,
+      "settings": [
+        {
+          "id": "button_text",
+          "type": "text",
+          "label": "Button Content",
+          "default": "Shop Mix & Match"
+        },
+        {
+          "type": "range",
+          "id": "button_font_size",
+          "min": 12,
+          "max": 18,
+          "step": 2,
+          "unit": "px",
+          "label": "Button Text Font Size",
+          "default": 14
+        },
+        {
+          "id": "button_url",
+          "type": "url",
+          "label": "Button URL"
+        },
+        {
+          "type": "range",
+          "id": "button_padding_top",
+          "min": 12,
+          "max": 24,
+          "step": 2,
+          "unit": "px",
+          "label": "Button Margin Top",
+          "default": 18
+        },
+        {
+          "type": "range",
+          "id": "button_padding_bottom",
+          "min": 0,
+          "max": 24,
+          "step": 2,
+          "unit": "px",
+          "label": "Button Margin Buttom",
+          "default": 18
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Before / After Slider",
+      "blocks": [
+        {
+          "type": "subtext"
+        },
+        {
+          "type": "heading"
+        },
+        {
+          "type": "content"
+        },
+        {
+          "type": "button"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<script>
+  function initializeBeforeAfterSlider(uniqueId) {
+    const dp_01_container_wrapper = document.querySelector(`.${uniqueId} .before_after`);
+    const slider = document.querySelector(`.${uniqueId} .dp_01_slider`);
+
+    slider.addEventListener('input', (e) => {
+      dp_01_container_wrapper.style.setProperty('--position', `${e.target.value}%`);
+    });
+  }
+
+  initializeBeforeAfterSlider('{{ unique_id }}');
+</script>

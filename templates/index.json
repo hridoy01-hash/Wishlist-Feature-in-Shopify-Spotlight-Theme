@@ -1,0 +1,101 @@
+{
+  "sections": {
+    "after_before_slider_GfCRBh": {
+      "type": "after-before-slider",
+      "blocks": {
+        "subtext_bRJg4H": {
+          "type": "subtext",
+          "settings": {
+            "ba_sub_text": "Mix & Match",
+            "subtext_font_size": 14,
+            "subtext_padding_top": 18,
+            "subtext_padding_bottom": 0
+          }
+        },
+        "heading_RYm6E6": {
+          "type": "heading",
+          "settings": {
+            "ba_heading": "Layer up with pieces designed",
+            "heading_font_size": 30,
+            "heading_padding_top": 12,
+            "heading_padding_bottom": 0
+          }
+        },
+        "content_pyFYXH": {
+          "type": "content",
+          "settings": {
+            "ba_content": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eius, inventore! Nobis ipsa cum",
+            "content_font_size": 12,
+            "content_padding_top": 18,
+            "content_padding_bottom": 0
+          }
+        },
+        "button_rT34Vw": {
+          "type": "button",
+          "settings": {
+            "button_text": "Shop Mix & Match",
+            "button_font_size": 14,
+            "button_url": "shopify:\/\/collections\/all",
+            "button_padding_top": 12,
+            "button_padding_bottom": 18
+          }
+        }
+      },
+      "block_order": [
+        "subtext_bRJg4H",
+        "heading_RYm6E6",
+        "content_pyFYXH",
+        "button_rT34Vw"
+      ],
+      "settings": {
+        "bf_image": "shopify:\/\/shop_images\/Untitled_design_3.png",
+        "af_image": "shopify:\/\/shop_images\/Untitled_design.png",
+        "show_badge": true,
+        "grayscale_before": false,
+        "show_content": true,
+        "show_shop_button": true,
+        "section_padding": 40,
+        "mobile_device_section_padding": 30,
+        "section_margin_top": 50,
+        "section_margin_bottom": 50,
+        "mobile_device_section_margin_top": 40,
+        "mobile_device_section_margin_bottom": 40,
+        "section_bg": "#ffffff",
+        "before_after_content_wrapper_bg": "#f7efef",
+        "button_hover_bg": "#000000"
+      }
+    },
+    "featured_collection": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Test Featured",
+        "heading_size": "h2",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "collection": "all",
+        "products_to_show": 24,
+        "columns_desktop": 4,
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "outline",
+        "enable_desktop_slider": false,
+        "color_scheme": "scheme-1",
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "enable_quick_add": false,
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 0,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "after_before_slider_GfCRBh",
+    "featured_collection"
+  ]
+}
