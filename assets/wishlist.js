@@ -40,8 +40,6 @@ document.addEventListener("DOMContentLoaded", function () {
       } else {
         WishAddedArray.push(wishListProductHandle);
         btn.classList.add("active_wishlist");
-        const wishlistNumber = document.querySelector('.wishlist_count_number');
-        console.log("wishlistNumber" ,wishlistNumber);
       }
 
       // Save wishlist to local storage
